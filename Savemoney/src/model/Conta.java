@@ -1,16 +1,19 @@
 package model;
 
 public class Conta {
-	protected int id_conta;
+	public static int id_conta;
 	protected int id_lancamento;
 	protected String nome;
 	protected String email;
-	protected String telefone;
-	public int getId_conta() {
+	protected String senha;
+	public Conta(String nome, String email, String senha) {
+		
+	}
+	public static int getId_conta() {
 		return id_conta;
 	}
 	public void setId_conta(int id_conta) {
-		this.id_conta = id_conta;
+		Conta.id_conta = id_conta;
 	}
 	public int getId_lancamento() {
 		return id_lancamento;
@@ -30,11 +33,11 @@ public class Conta {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getTelefone() {
-		return telefone;
+	public String getSenha() {
+		return senha;
 	}
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 	
 	
