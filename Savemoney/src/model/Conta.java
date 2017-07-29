@@ -1,13 +1,20 @@
 package model;
 
+import controller.LancamentoDAO;
+/*import model.Lancamento;*/
+
 public class Conta {
 	public static int id_conta;
 	protected int id_lancamento;
 	protected String nome;
 	protected String email;
 	protected String senha;
+	
 	public Conta(String nome, String email, String senha) {
 		
+	}
+	public Conta() {
+		// TODO Auto-generated constructor stub
 	}
 	public static int getId_conta() {
 		return id_conta;
@@ -40,7 +47,16 @@ public class Conta {
 		this.senha = senha;
 	}
 	
-	
+	public void ImprimirExtrato(LancamentoDAO listaLancamentos){
+		System.out.print("   ");
+		listaLancamentos.show(null);
+			
+			
+
+		}
+	}
+
+
 	
 
-}
+
