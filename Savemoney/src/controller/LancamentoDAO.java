@@ -94,7 +94,19 @@ public class LancamentoDAO extends DAO implements Serializable{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public void show( ArrayList<?> listaLancamentos) {
+		for (Object lancamento: listaLancamentos)
+		{
+			if(id==((model.Lancamento) lancamento).getId_lancamento()){
+				System.out.print("   ");
+			}
+		
+		
+	}
+	}
 }
+	
 
 
 	
