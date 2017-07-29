@@ -25,10 +25,15 @@ public class Receitas extends Lancamento {
 	public void Lancamento(Calendar data, float valor, String descricao){
 		this.data = data;
 		this.valor = valor;
-		this.setDescricao(descricao);
-		
-		
-		
+		this.setDescricao(descricao);		
+	}
+	
+	public void AumentarValor(float valor){
+		if (RECEITAS == receita){
+			valor ++;
+		} else{
+			valor --;
+		}
 	}
 	public String getDescricao() {
 		return descricao;
@@ -36,6 +41,7 @@ public class Receitas extends Lancamento {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
 	
 
 }
