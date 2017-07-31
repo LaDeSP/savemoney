@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +21,15 @@ public class ContaDAO extends DAO implements Serializable {
 		id = count.incrementAndGet();
 	}
 	
-	public static void Escrever()
+/*	public static void Escrever()
 	{
 		Escrever(Conta.id_conta, listaConta );
-	}
+	}*/
 	
 	private static void Escrever( int id_conta,
-			List<model.Conta> listaConta) {
-	
+			List<model.Conta> listaConta) throws IOException {
+		FileWriter arq = new FileWriter("arquivo.txt");
+		
 	}
 
 	public static void lerArquivo()
@@ -46,6 +49,7 @@ public class ContaDAO extends DAO implements Serializable {
 		if(usuario==Conta.id_conta){
 			Conta novo = new Conta(nome, email, senha);
 			listaConta.add(novo);
+			Escrever("receita", novo);
 			System.out.println ("Conta criado com sucesso");
 		}
 		return true;
