@@ -9,14 +9,16 @@ import java.io.ObjectOutputStream;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
-public class DAO {
+public class DAO{
 	public static boolean Escrever(String receitas, Object objeto)
 	{
 		try {
-			FileOutputStream fos = new FileOutputStream(receitas);
+			
+			FileOutputStream fos = new FileOutputStream("/src/res.ser");
 	    	ObjectOutputStream oos = new ObjectOutputStream(fos);
 	    	oos.writeObject(objeto);
-	    	oos.flush();
+	    	System.out.print("heloo");
+	    	//oos.flush();
 	    	oos.close();
 		}
 		catch(IOException e){
