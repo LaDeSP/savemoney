@@ -7,6 +7,29 @@ public class Lancamento {
 	public static final char RECEITAS = 0;
 	protected int id_lancamento;
 	protected Calendar data;
+	protected Conta objetoConta;
+	protected float valor;
+	
+	public Conta getObjetoConta() {
+		return objetoConta;
+	}
+
+	public void setObjetoConta(Conta objetoConta) {
+		this.objetoConta = objetoConta;
+	}
+
+	public float getValor() {
+		return valor;
+	}
+
+	public void setValor(float valor) {
+		this.valor = valor;
+	}
+
+	public Lancamento(Conta objetoConta, float valor) {
+		this.objetoConta = objetoConta;
+		this.valor = valor;
+	}
 	
 	public int getId_lancamento() {
 		return id_lancamento;

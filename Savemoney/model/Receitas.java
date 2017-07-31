@@ -5,10 +5,13 @@ import java.util.Calendar;
 
 public class Receitas extends Lancamento {
 	protected int receita;
-	protected float valor;
 	private String descricao;
-	public Receitas(Calendar data, String descricao2, float valor2) {
+
+	public Receitas(Calendar data, String descricao, Conta objetoConta, float valor) {
+		super(objetoConta, valor);
 	}
+	
+	// new Receitas(data, descricao, objetoConta)
 	public int getReceita() {
 		return receita;
 	}
@@ -28,13 +31,10 @@ public class Receitas extends Lancamento {
 		this.setDescricao(descricao);		
 	}
 	
-	public void AumentarValor(float valor){
-		if (RECEITAS == receita){
-			valor ++;
-		} else{
-			valor --;
-		}
+	public void Adiciona(float valor){
+		objetoConta.setValor(this.valor + valor);
 	}
+	
 	public String getDescricao() {
 		return descricao;
 	}

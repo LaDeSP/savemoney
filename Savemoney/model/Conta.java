@@ -1,15 +1,25 @@
 package model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import controller.LancamentoDAO;
 /*import model.Lancamento;*/
 
-public class Conta {
+public class Conta implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private static final AtomicInteger count = new AtomicInteger(0);
 	public static int id_conta;
-	protected int id_lancamento;
 	protected String nome;
 	protected String email;
 	protected String senha;
+	private float valor;
 	
+	public void setValor(float valor) {
+		this.valor = valor;
+	}
 	public Conta(String nome, String email, String senha) {
 		
 	}
@@ -22,12 +32,7 @@ public class Conta {
 	public void setId_conta(int id_conta) {
 		Conta.id_conta = id_conta;
 	}
-	public int getId_lancamento() {
-		return id_lancamento;
-	}
-	public void setId_lancamento(int id_lancamento) {
-		this.id_lancamento = id_lancamento;
-	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -47,14 +52,15 @@ public class Conta {
 		this.senha = senha;
 	}
 	
-	public void ImprimirExtrato(LancamentoDAO listaLancamentos){
+	public void ImprimirExtrato(ArrayList<Lancamento> listaLancamentos, LancamentoDAO x){
 		System.out.print("   ");
-		listaLancamentos.show(null);
+		x.show(listaLancamentos);
 			
-			
-
-		}
 	}
+	public float getValor() {
+		return this.valor;
+	}
+}
 
 
 	
