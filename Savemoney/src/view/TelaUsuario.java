@@ -8,9 +8,10 @@ public class TelaUsuario {
 	
 	Scanner ler = new Scanner(System.in);
 		
-		public void cadastrar() throws Exception
+		public void cadastrar(ContaDAO conta) throws Exception
 		{
 			String nome, senha, email;
+			float valor;
 			
 			System.out.print("Nome: ");
 			nome = ler.nextLine();
@@ -18,12 +19,27 @@ public class TelaUsuario {
 			senha = ler.nextLine();
 			System.out.print("Email: ");
 			email = ler.nextLine();
+			System.out.print("Digite um saldo: ");
+			valor = ler.nextFloat();
 			
-			if(ContaDAO.Criar(nome,email,senha)){
-				System.out.println("Cliente cadastrado com sucesso");
+			if(conta.Criar(nome,email,senha,valor)){
+				//System.out.println("Cliente cadastrado com sucesso");
 			}else{
-				System.out.println("Erro ao cadastrar cliente");
+				System.out.println("Erro ao cadastrar usuário");
 			}
+			
+}
+		public boolean login(ContaDAO conta){
+			Scanner ler = new Scanner (System.in);
+			
+			System.out.print("Login: ");
+			String nome = ler.nextLine();
+			System.out.print("Senha: ");
+			String senha = ler.nextLine();
+			
+			return conta.fazerLogin(nome, senha);
+			
+			
+		}
+}
 
-}
-}
