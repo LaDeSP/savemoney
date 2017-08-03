@@ -1,14 +1,17 @@
 package model;
 
 /*import java.util.Scanner;*/
-import java.util.Calendar;
+
 
 public class Receitas extends Lancamento {
 	protected int receita;
-	protected float valor;
 	private String descricao;
-	public Receitas(Calendar data, String descricao2, float valor2) {
+
+	public Receitas(String data, String descricao, Conta objetoConta, float valor) {
+		super(objetoConta, valor);
 	}
+	
+	// new Receitas(data, descricao, objetoConta)
 	public int getReceita() {
 		return receita;
 	}
@@ -22,19 +25,16 @@ public class Receitas extends Lancamento {
 		this.valor = valor;
 	}
 	
-	public void Lancamento(Calendar data, float valor, String descricao){
+	public void Lancamento(String data, float valor, String descricao){
 		this.data = data;
 		this.valor = valor;
 		this.setDescricao(descricao);		
 	}
 	
-	public void AumentarValor(float valor){
-		if (RECEITAS == receita){
-			valor ++;
-		} else{
-			valor --;
-		}
+	public void Adiciona(float valor){
+		objetoConta.setValor(this.valor + valor);
 	}
+	
 	public String getDescricao() {
 		return descricao;
 	}
