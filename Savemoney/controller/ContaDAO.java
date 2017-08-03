@@ -1,96 +1,110 @@
 package controller;
 
+
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import model.Conta;
 
 
-public class ContaDAO extends DAO implements Serializable {
+public class ContaDAO implements Serializable {
 
 	int id;
 	private static final long serialVersionUID = 1L;
 	private static final AtomicInteger count = new AtomicInteger(0);
-	private static List<Conta>listaConta = new ArrayList<Conta>();
+	private ArrayList<Conta>listaConta = new ArrayList<Conta>();
 	
 	public ContaDAO(){
 		id = count.incrementAndGet();
 	}
 	
-	public static void Escrever()
+	
+	
+	public boolean Escrever(ArrayList<Conta> objeto)
 	{
-		Escrever(Conta.id_conta, listaConta );
-	}
-	
-	private static void Escrever( int id_conta,
-			List<model.Conta> listaConta) {
-	
-	}
-
-	public static void lerArquivo()
-	{
-		listaConta = (List<Conta>) Ler(Conta.id_conta, listaConta);
-	}
-	
-	private static List<model.Conta> Ler(int conta,
-			List<model.Conta> listaConta) {
-		
-		return null;
-	}
-
-	public static boolean Criar(String nome, String email, String senha){
-		int usuario = 0;
-	
-		if(usuario==Conta.id_conta){
-			Conta novo = new Conta(nome, email, senha);
-			listaConta.add(novo);
-			System.out.println ("Conta criado com sucesso");
+		try {
+			
+			FileOutputStream fos = new FileOutputStream("contas.ser");
+	    	ObjectOutputStream oos = new ObjectOutputStream(fos);
+	    	oos.writeObject(objeto);
+	    	//oos.flush();
+	    	oos.close();
 		}
+		catch(IOException e){
+			e.printStackTrace();	
+		}
+		return false;
+	}
+	
+	
+
+
+	public boolean Criar(String nome, String email, String senha, float valor){
+	
+			Conta novo = new Conta(nome, email, senha, valor);
+			this.listaConta.add(novo);
+			System.out.println ("Conta criado com sucesso");
+			this.Escrever(this.listaConta);
 		return true;
 	}
 
-	public static List<Conta> getListaConta() {
+	public ArrayList<Conta> getListaConta() {
+		try {
+			FileInputStream fos = new FileInputStream("contas.ser");
+			ObjectInputStream  oos = new ObjectInputStream(fos);
+	    	
+			try {
+				this.listaConta = (ArrayList<model.Conta>) oos.readObject();
+				} catch (ClassNotFoundException e) {
+				
+				e.printStackTrace();
+			}
+			
+			oos.close();
+		}
+		catch(IOException e){
+			e.printStackTrace();	
+		}
+		
 		return listaConta;
 	}
 
-	public static void setListaConta(List<Conta> listaConta) {
-		ContaDAO.listaConta = listaConta;
+
+	public void setListaConta(ArrayList<Conta> listaConta) {
+		this.listaConta = listaConta;
 	}
 	
-	public static void Remove(int id){
+	public void Remove(int id){
 	
-		for(@SuppressWarnings("unused") Conta Conta : listaConta)
+		for(Conta conta : listaConta)
 		{
 			if(id == model.Conta.getId_conta())
 			{
-				ContaDAO.listaConta.remove(model.Conta.id_conta);
+				this.listaConta.remove(model.Conta.id_conta);
 				return ;
 			}
 		}
 	}
 	
-	public static void Atualiza(int id){
-		for (@SuppressWarnings("unused") Conta Conta: listaConta)
-		{
-			if(id==model.Conta.getId_conta())
-			{
-				Object novo = null;
-				listaConta = Conta(novo);
-			}
-	
-		
-	
-		
-		
+	public boolean fazerLogin(String nome, String senha){
+		for (Conta c: this.listaConta){
+			
+			if(nome.equals(c.getNome()) && senha.equals(c.getSenha())){
+				System.out.print("Login efetuado com sucesso!");
+				return true;
+			}			
 		}
+		System.out.print("Nome ou senha incorreto!");
+		return false;
 		
-	}
-
-	private static List<Conta> Conta(Object novo) {
 		
-		return null;
 	}
 
 	

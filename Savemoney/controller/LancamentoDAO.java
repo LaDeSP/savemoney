@@ -1,102 +1,100 @@
 package controller;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.Calendar;
+
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import model.Conta;
 import model.Lancamento;
 import model.Receitas;
 /*import model.Despesas; */
 
 
 
-public class LancamentoDAO extends DAO implements Serializable{
+public class LancamentoDAO implements Serializable{
 	int id;
 	private static final long serialVersionUID = 1L;
 	private static final AtomicInteger count = new AtomicInteger(0);
-	private static List<Lancamento>listaLancamentos = new ArrayList<Lancamento>();
+	private ArrayList<Lancamento>listaLancamentos = new ArrayList<Lancamento>();
 	
 	public LancamentoDAO(){
 		id = count.incrementAndGet();
 	}
 	
-	public static void Escrever()
+	public boolean Escrever(ArrayList<Lancamento> objeto)
 	{
-		Escrever(Lancamento.RECEITAS, listaLancamentos );
-	}
-	
-	private static void Escrever(char receitas,
-			List<model.Lancamento> listaLancamentos) {
-	
-		
+		try {
+			
+			FileOutputStream fos = new FileOutputStream("lancamentos.ser");
+	    	ObjectOutputStream oos = new ObjectOutputStream(fos);
+	    	oos.writeObject(objeto);
+	    	//oos.flush();
+	    	oos.close();
+		}
+		catch(IOException e){
+			e.printStackTrace();	
+		}
+		return false;
 	}
 
-	public static void lerArquivo()
-	{
-		listaLancamentos = (List<Lancamento>) Ler(Lancamento.RECEITAS, listaLancamentos);
-	}
+	public void Inserir(String data, String descricao, Conta objetoConta,float valor, int i){
 	
-	private static List<model.Lancamento> Ler(char receitas,
-			List<model.Lancamento> listaLancamentos2) {
-		
-		return null;
-	}
-
-	public static void Inserir(Calendar data, String descricao, float valor, char tipo){
-	
-		if(tipo==Lancamento.RECEITAS){
-			Receitas novo = new Receitas(data, descricao, valor);
+		if(i==Lancamento.RECEITAS){
+			Receitas novo = new Receitas(data, descricao, objetoConta, valor);
 			listaLancamentos.add(novo);
 			System.out.println ("Lançamento inserido com sucesso");
+			this.Escrever(this.listaLancamentos);
 		}
 	}
-
-	public static List<Lancamento> getListaLancamentos() {
+	
+	public ArrayList<Lancamento> getListaLancamentos() {
+		try {
+			FileInputStream fos = new FileInputStream("lancamentos.ser");
+			ObjectInputStream  oos = new ObjectInputStream(fos);
+	    	
+			try {
+				this.listaLancamentos = (ArrayList<model.Lancamento>) oos.readObject();
+				} catch (ClassNotFoundException e) {
+				
+				e.printStackTrace();
+			}
+			
+			oos.close();
+		}
+		catch(IOException e){
+			e.printStackTrace();	
+		}
+		
 		return listaLancamentos;
 	}
 
-	public static void setListaLancamentos(List<Lancamento> listaLancamentos) {
-		LancamentoDAO.listaLancamentos = listaLancamentos;
+
+
+	public void setListaLancamentos(ArrayList<Lancamento> listaLancamentos) {
+		this.listaLancamentos = listaLancamentos;
 	}
 	
-	public static void Remove(int id){
+	public void Remove(int id){
 	
 		for(Lancamento lancamento : listaLancamentos)
 		{
 			if(id == lancamento.getId_lancamento())
 			{
-				LancamentoDAO.listaLancamentos.remove(lancamento);
+				this.listaLancamentos.remove(lancamento);
 				return ;
 			}
 		}
 	}
 	
-	public static void Atualiza(int id){
+	
+	public void show( ArrayList<Lancamento> listaLancamentos) {
 		for (Lancamento lancamento: listaLancamentos)
-		{
-			if(id==lancamento.getId_lancamento())
-			{
-				Object novo = null;
-				listaLancamentos = Lancamento(novo);
-			}
-	
-		
-	
-		
-		
-		}
-		
-	}
-
-	private static List<Lancamento> Lancamento(Object novo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void show( ArrayList<?> listaLancamentos) {
-		for (Object lancamento: listaLancamentos)
 		{
 			if(id==((model.Lancamento) lancamento).getId_lancamento()){
 				System.out.print("   ");
