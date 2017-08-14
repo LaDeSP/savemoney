@@ -1,8 +1,8 @@
 package model;
 
 public class Despesas extends Lancamento{
-	public Despesas(Conta objetoConta, float valor) {
-		super(objetoConta, valor);
+	public Despesas(String data,Conta objetoConta, float valor, Categoria categoria) {
+		super(data, objetoConta, valor, categoria);
 	}
 
 

@@ -26,6 +26,8 @@ public class Conta implements Serializable{
 		this.senha = senha;
 		this.valor = valor;
 	}
+	
+
 
 	public void setValor(float valor) {
 		this.valor = valor;
@@ -57,15 +59,32 @@ public class Conta implements Serializable{
 		this.senha = senha;
 	}
 	
-	public void ImprimirExtrato(ArrayList<Lancamento> listaLancamentos, LancamentoDAO x){
+	public void ImprimirExtrato(Lancamento lancamento){
+		
 		System.out.print("   ");
-		x.show(listaLancamentos);
+	
 			
 	}
 	public float getValor() {
 		return this.valor;
 	}
-	
+	public float getSaldoFinal() {
+		ArrayList<Lancamento> listaLancamentos = new LancamentoDAO().getListaLancamentos();
+		
+		float receitas = 0;
+		float despesas = 0;
+		
+		for(Object o : listaLancamentos) {
+			if ( ((Lancamento) o).getObjetoConta().getNome().equals(this.nome)) {
+			
+			if(o instanceof Despesas ) 
+				despesas += ((Despesas) o).getValor();
+			else
+				receitas += ((Receitas) o).getValor();
+			}
+		}
+		return this.valor + receitas - despesas;
+	}
 	
 }
 

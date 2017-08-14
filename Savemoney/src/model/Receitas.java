@@ -5,10 +5,10 @@ package model;
 
 public class Receitas extends Lancamento {
 	protected int receita;
-	private String descricao;
-
-	public Receitas(String data, String descricao, Conta objetoConta, float valor) {
-		super(objetoConta, valor);
+	//private String descricao;
+	
+	public Receitas(String data,Conta objetoConta, float valor, Categoria categoria) {
+		super(data,objetoConta, valor, categoria);
 	}
 	
 	// new Receitas(data, descricao, objetoConta)
@@ -28,19 +28,19 @@ public class Receitas extends Lancamento {
 	public void Lancamento(String data, float valor, String descricao){
 		this.data = data;
 		this.valor = valor;
-		this.setDescricao(descricao);		
+		//this.setDescricao(descricao);		
 	}
 	
 	public void Adiciona(float valor){
 		objetoConta.setValor(this.valor + valor);
 	}
 	
-	public String getDescricao() {
+	/*public String getDescricao() {
 		return descricao;
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
+	}*/
 	
 	
 

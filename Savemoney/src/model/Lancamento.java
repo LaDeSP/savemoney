@@ -1,18 +1,40 @@
 package model;
 
+import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.*;
+
+import controller.LancamentoDAO;
 /*import java.util.Scanner;*/
 
 /*import java.util.Calendar;*/
-public class Lancamento {
+public class Lancamento implements Serializable{
 	public static final char RECEITAS = 0;
 	protected int id_lancamento;
 	protected String data;
 	protected Conta objetoConta;
 	protected float valor;
+	protected Categoria objetoCategoria;
 	
+
+	public Lancamento(String data,Conta objetoConta, float valor, Categoria objetoCategoria) {
+		this.data = data;
+		this.objetoConta = objetoConta;
+		this.valor = valor;
+		this.objetoCategoria = objetoCategoria;
+	}
+	
+	public Categoria getObjetoCategoria() {
+		return objetoCategoria;
+	}
+
+	public void setObjetoCategoria(Categoria objetoCategoria) {
+		this.objetoCategoria = objetoCategoria;
+	}
+
 	public Conta getObjetoConta() {
 		return objetoConta;
 	}
@@ -29,10 +51,6 @@ public class Lancamento {
 		this.valor = valor;
 	}
 
-	public Lancamento(Conta objetoConta, float valor) {
-		this.objetoConta = objetoConta;
-		this.valor = valor;
-	}
 	
 	public int getId_lancamento() {
 		return id_lancamento;
@@ -41,19 +59,25 @@ public class Lancamento {
 		this.id_lancamento = id_lancamento;
 	}
 	public String getData() {
-		return data;
+		return formataData(data);
 	}
 	public void setData(String data) {
 		this.data = data;
 	}
-	public  String formataData(String data)throws ParseException{
+	public  String formataData(String data){
+		//System.out.println(data);
 		SimpleDateFormat df = new SimpleDateFormat ("yyyy-MM-dd");
-		Date d = df.parse(data);
-		df = new SimpleDateFormat("dd/MM/yyyy");
-		String s = df.format(d);
-		return s;
+		try {
+			Date d = df.parse(data);
+			df = new SimpleDateFormat("dd/MM/yyyy");
+			String s = df.format(d);
+			return s;
+		} catch (Exception e) {
+			return data;
+		}
 		
 		
-	
 	}
+	
+
 }
