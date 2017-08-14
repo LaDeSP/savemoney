@@ -1,6 +1,8 @@
 package view;
 
 import java.util.Scanner;
+
+import model.Conta;
 import controller.ContaDAO;
 
 
@@ -19,17 +21,18 @@ public class TelaUsuario {
 			senha = ler.nextLine();
 			System.out.print("Email: ");
 			email = ler.nextLine();
-			System.out.print("Digite um saldo: ");
+			System.out.print("Digite um Valor: ");
 			valor = ler.nextFloat();
 			
 			if(conta.Criar(nome,email,senha,valor)){
+	
 				//System.out.println("Cliente cadastrado com sucesso");
 			}else{
 				System.out.println("Erro ao cadastrar usuário");
 			}
 			
 }
-		public boolean login(ContaDAO conta){
+		public Conta login(ContaDAO conta){
 			Scanner ler = new Scanner (System.in);
 			
 			System.out.print("Login: ");
